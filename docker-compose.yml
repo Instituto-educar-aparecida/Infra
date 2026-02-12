@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: db_educar
+    environment:
+      POSTGRES_USER: educar_user
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: instituto_db
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ../Backend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ../Backend:/app
+      - /app/node_modules
+    environment:
+      - DB_HOST=db
+    depends_on:
+      - db
+
+  frontend:
+    build: ../Frontend-e-estilistica.
+    ports:
+      - "5174:5174"
+    volumes:
+      - ../Frontend-e-estilistica.:/app
+      - /app/node_modules
+
